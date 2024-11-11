@@ -35,6 +35,14 @@ for url in urls:
         )
     except Exception as e:
         print(f"Errore nel caricamento dei prodotti da {url}: {e}")
+        with open('ref.txt', 'r') as file:
+            lines = file.readlines()
+        with open('ref.txt', 'w') as file:
+            for line in lines:
+                if line.strip() == url:
+                    file.write(f"#{line}")
+                else:
+                    file.write(line)
         continue
 
     # Get the HTML content after elements are loaded
@@ -96,7 +104,7 @@ for url in urls:
     end_time = time.time()
     print(f"Tempo di caricamento per {url}: {end_time - start_time} secondi")
 
-        # Se il caricamento è riuscito, aggiungi # all'inizio dell'URL in ref.txt
+    # Se il caricamento è riuscito, aggiungi # all'inizio dell'URL in ref.txt
     with open('ref.txt', 'r') as file:
         lines = file.readlines()
     with open('ref.txt', 'w') as file:
